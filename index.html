@@ -1,11 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live TV</title>
+    <title>Liste des fichiers</title>
 </head>
 <body>
-    <p>My Live TV</p>
+    <h1>Liste des fichiers dans le répertoire 'glive'</h1>
+    <ul id="file-list"></ul>
+
+    <script>
+        fetch('https://github.com/sanoussy22/live-tv/tree/108984bcb690cbb62b109bb0e0b3883f16568ade/live')
+            .then(response => response.json())
+            .then(data => {
+                let fileList = document.getElementById('file-list');
+                data.forEach(file => {
+                    let listItem = document.createElement('li');
+                    let link = document.createElement('a');
+                    link.href = file.download_url;
+                    link.textContent = file.name;
+                    listItem.appendChild(link);
+                    fileList.appendChild(listItem);
+                });
+            })
+            .catch(error => console.error('Erreur :', error));
+    </script>
 </body>
 </html>
